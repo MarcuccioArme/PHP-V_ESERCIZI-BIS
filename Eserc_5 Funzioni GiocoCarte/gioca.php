@@ -12,7 +12,23 @@
 
     <form action="<?php echo($_SERVER["PHP_SELF"]) ?>" method="POST">
 
-        
+        <table border=1>
+
+            <tr>
+                <td width="150">La tua carta è:</td>
+                <td width="218" height="300">
+                    
+                </td>
+            </tr>
+
+            <tr>
+                <td>Il tuo punteggio è:</td>
+                <td height="50"></td>
+            </tr>
+
+        </table>
+
+        <input type="submit" name="submit" value="Gioca">
 
     </form>
     
@@ -21,8 +37,43 @@
 
 <?php
 
+    $semi = ["Cuori", "Fiori", "Picche", "Quadri"];
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        
+        $numeroCarta = GeneraNumeroCarta();
+        $semeCarta = GeneraSemeCarta($semi);
+
+        $cartaEstratta = $numeroCarta . $semeCarta;
+
+        echo $cartaEstratta;
     }
 
+    function GeneraNumeroCarta() {
+        $randNum = rand(1, 13);
+        $numeroCarta;
+
+        switch ($randNum) {
+            case 1: $numeroCarta = "A";
+                break;
+
+            case 11: $numeroCarta = "J";
+                break;
+
+            case 12: $numeroCarta = "K";
+                break;
+
+            case 13: $numeroCarta = "Q";
+                break;
+
+            default: $numeroCarta = $randNum;
+                break;
+        }
+
+        return $numeroCarta;
+    }
+
+    function GeneraSemeCarta($semi) {
+        $randNum = rand(0, 3);
+        return $semi[$randNum];
+    }
 ?>
